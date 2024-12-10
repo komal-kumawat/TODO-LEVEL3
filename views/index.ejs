@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form action="/add" method="POST" class="addTask">
+            <input
+                type="text"
+                name="task"
+                placeholder="Add a new task...."
+                required
+            />
+            <button type="submit">Add</button>
+        </form>
+        <ul class="task-list">
+            <% tasks.forEach(task => { %>
+            <li class="task <%= task.completed ? 'completed' : '' %>">
+                <span><%= task.completed ? `✓ ${task.name}` : task.name %></span>
+                <div class="actions">
+                    <form action="/complete/<%= task._id %>" method="POST" class="inline-form">
+                        <button type="submit" class="complete"> 
+                            <%= task.completed ? 'Undo' : 'Complete' %>
+                        </button>
+                    </form>
+                    <!-- Delete form -->
+                    <form action="/delete/<%= task._id %>" method="POST" class="inline-form">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </li>
+            <% }); %>
+        </ul>
+        
+    </div>
+</body>
+</html>
